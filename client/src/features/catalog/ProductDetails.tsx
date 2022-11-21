@@ -1,8 +1,9 @@
 import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material"
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFound";
+import LoadingComponents from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/models/product";
 
 export default function ProductDetails() {
@@ -17,9 +18,9 @@ export default function ProductDetails() {
             .finally(() => setLoading(false));
     }, [id])
 
-    if (loading) return <h3>Loading...</h3>
+    if (loading) return <LoadingComponents message="Loading Product..." />
 
-    if (!product) return <h3>Product not found!</h3>
+    if (!product) return <NotFound />
 
     return (
         <Grid container spacing={6}>
